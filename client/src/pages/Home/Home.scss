@@ -1,0 +1,25 @@
+#home {
+  #header {
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 40px;
+
+    .little {
+      font-size: 12px;
+    }
+
+    .links {
+      gap: 60px;
+    }
+  }
+
+  .title {
+    text-align: center;
+    font-size: 34px;
+  }
+
+  .input-container {
+    justify-content: center;
+    gap: 20px;
+  }
+}
