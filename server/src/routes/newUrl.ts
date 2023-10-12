@@ -1,5 +1,6 @@
 import { prisma } from "@/config/db";
 import express from "express";
+import shortid from "shortid";
 
 const router = express.Router();
 
@@ -13,14 +14,12 @@ router.post("/", async (req, res) => {
 
     const prismaRes = await prisma.urls.create({
       data: {
-        short_url: "test",
+        short_url: shortid.generate(),
         url: longUrl,
       },
     });
 
-    console.log(prismaRes);
-
-    res.json({ url: prismaRes.url });
+    res.json({ url: prismaRes.url, shortUrl: prismaRes.short_url });
   } catch (e) {
     console.log(e);
 
