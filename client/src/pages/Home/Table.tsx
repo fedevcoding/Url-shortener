@@ -1,8 +1,8 @@
 import { ArrayMapper } from "@components";
-import { useLocalStorage } from "usehooks-ts";
+import { useAliases } from "@hooks";
 
 const Table = () => {
-  const [aliases, setAliases] = useLocalStorage<string[]>("aliases", []);
+  const { aliases, removeAlias } = useAliases();
 
   return (
     <div>
@@ -15,7 +15,7 @@ const Table = () => {
               <p>{alias}</p>
               <button
                 onClick={() => {
-                  setAliases(aliases.filter((a) => a !== alias));
+                  removeAlias(alias);
                 }}
               >
                 Hide
@@ -24,13 +24,6 @@ const Table = () => {
           );
         }}
       />
-      <div
-        onClick={() => {
-          setAliases([...aliases, Math.random().toString()]);
-        }}
-      >
-        add
-      </div>
     </div>
   );
 };

@@ -21,5 +21,9 @@
   .input-container {
     justify-content: center;
     gap: 20px;
+
+    input {
+      width: 300px;
+    }
   }
 }
