@@ -8,10 +8,27 @@ const Home = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { addAlias } = useAliases();
 
-  const handleShrink = () => {
+  const handleShrink = async () => {
     const input = inputRef.current;
     if (input) {
-      addAlias(input.value);
+      const json: {
+        shortUrl: string;
+        url: string;
+      } = await (
+        await fetch(`http://localhost:3000/create`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            longUrl: input.value,
+          }),
+        })
+      ).json();
+
+      const { shortUrl, url } = json;
+
+      addAlias(url, shortUrl);
       input.value = "";
     } else {
       // toast error
@@ -36,6 +53,7 @@ const Home = () => {
           Shrink
         </button>
       </form>
+      <hr />
 
       <Table />
     </section>

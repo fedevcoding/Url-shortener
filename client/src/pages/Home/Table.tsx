@@ -1,29 +1,57 @@
 import { ArrayMapper } from "@components";
+import { CLIENT_URL } from "@constants";
 import { useAliases } from "@hooks";
 
 const Table = () => {
   const { aliases, removeAlias } = useAliases();
 
   return (
-    <div>
-      <ArrayMapper
-        array={aliases}
-        dependencyArray={[aliases]}
-        mapper={(alias, _, key) => {
-          return (
-            <div key={key}>
-              <p>{alias}</p>
-              <button
-                onClick={() => {
-                  removeAlias(alias);
-                }}
-              >
-                Hide
-              </button>
-            </div>
-          );
-        }}
-      />
+    <div className="table-section">
+      <h1>Your saved URLs</h1>
+
+      {aliases.length === 0 ? (
+        <p>No URLs saved or created</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Long URL</th>
+              <th>Short URL</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <ArrayMapper
+              array={aliases}
+              dependencyArray={[aliases]}
+              mapper={({ longUrl, shortUrl }, _, key) => {
+                return (
+                  <tr key={key}>
+                    <td>
+                      <a href={longUrl}>{longUrl}</a>
+                    </td>
+                    <td>
+                      <a href={`${CLIENT_URL}/${shortUrl}`}>
+                        {CLIENT_URL}/{shortUrl}
+                      </a>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          removeAlias(shortUrl);
+                        }}
+                        className="button"
+                      >
+                        Hide
+                      </button>
+                    </td>
+                  </tr>
+                );
+              }}
+            />
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

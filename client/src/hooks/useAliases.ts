@@ -1,14 +1,25 @@
 import { useLocalStorage } from "usehooks-ts";
 
 export const useAliases = () => {
-  const [aliases, setAliases] = useLocalStorage<string[]>("aliases", []);
+  const [aliases, setAliases] = useLocalStorage<
+    {
+      longUrl: string;
+      shortUrl: string;
+    }[]
+  >("aliases", []);
 
-  const addAlias = (alias: string) => {
-    setAliases([...aliases, alias]);
+  const addAlias = (longUrl: string, shortUrl: string) => {
+    setAliases([
+      ...aliases,
+      {
+        longUrl,
+        shortUrl,
+      },
+    ]);
   };
 
   const removeAlias = (alias: string) => {
-    setAliases(aliases.filter((a) => a !== alias));
+    setAliases(aliases.filter((a) => a.shortUrl !== alias));
   };
 
   return {

@@ -8,7 +8,6 @@ router.get("/", async (req, res) => {
     const { url } = req.query;
 
     // validate with zod
-
     const prismaRes = await prisma.urls.findUnique({
       where: {
         short_url: url as string,
@@ -20,7 +19,7 @@ router.get("/", async (req, res) => {
     if (!prismaRes) throw new Error("URL not found");
     const { url: resolvedUrl } = prismaRes;
 
-    res.json({ url: resolvedUrl });
+    res.json({ resolvedUrl });
   } catch (e) {
     console.log(e);
     if (e instanceof Error) {
