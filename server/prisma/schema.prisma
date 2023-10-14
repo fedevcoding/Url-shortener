@@ -11,9 +11,8 @@ datasource db {
 }
 
 model urls {
-  id        Int      @id @default(autoincrement())
+  short_url String   @id @unique
   url       String
-  short_url String   @unique
   created   DateTime @default(now())
 
   @@index([short_url])
@@ -22,9 +21,9 @@ model urls {
 
 model views {
   id         Int      @id @default(autoincrement())
-  url_id     Int
-  ip_address String
+  short_url  String
+  ip_address String?
   created    DateTime @default(now())
 
-  @@index([url_id])
+  @@index([short_url])
 }

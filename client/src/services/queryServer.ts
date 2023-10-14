@@ -30,4 +30,14 @@ export class QueryServer {
 
     return await res.json();
   }
+
+  async getStats(id: string): Promise<{ views: number } | Error> {
+    const res = await fetch(`${SERVER_URL}/stats/${id}`);
+
+    if (!res.ok) {
+      throw new Error(await res.text());
+    }
+
+    return await res.json();
+  }
 }

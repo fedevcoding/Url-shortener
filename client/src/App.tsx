@@ -1,7 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home } from "@pages";
-import Redirect from "@pages/Redirect";
-import { Header } from "@components";
+import { Home, Stats, Redirect } from "@pages";
 
 function App() {
   const router = createBrowserRouter([
@@ -11,11 +9,7 @@ function App() {
     },
     {
       path: "/stats",
-      element: (
-        <section>
-          <Header /> <h1>Coming Soon</h1>
-        </section>
-      ),
+      element: <Stats />,
     },
     {
       path: "/:url",

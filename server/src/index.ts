@@ -3,6 +3,7 @@ require("module-alias/register");
 import dotenv from "dotenv";
 dotenv.config();
 
+import requestIp from "request-ip";
 import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db";
@@ -13,6 +14,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors({ origin: "*" }));
+app.use(requestIp.mw());
 app.set("trust proxy", true);
 app.use(express.json({ limit: "500mb" }));
 app.use(express.urlencoded({ limit: "500mb", extended: true }));
