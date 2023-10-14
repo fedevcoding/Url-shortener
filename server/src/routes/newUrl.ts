@@ -7,15 +7,10 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   try {
     let { longUrl } = req.body as { longUrl: string };
-
     if (!longUrl) throw new Error("No URL provided");
 
-    longUrl =
-      (longUrl as string).startsWith("http://") || (longUrl as string).startsWith("https://")
-        ? longUrl
-        : `https://${longUrl}`;
+    longUrl = longUrl.startsWith("http://") || longUrl.startsWith("https://") ? longUrl : `https://${longUrl}`;
 
-    // validate with zod
     const prismaRes = await prisma.urls.create({
       data: {
         short_url: shortid.generate(),

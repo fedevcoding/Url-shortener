@@ -5,18 +5,21 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const { url } = req.query;
+    const { url } = req.query as { url: string };
 
-    // validate with zod
+    if (!url) throw new Error("No URL provided");
+
     const prismaRes = await prisma.urls.findUnique({
       where: {
-        short_url: url as string,
+        short_url: url,
       },
       select: {
         url: true,
       },
     });
+
     if (!prismaRes) throw new Error("URL not found");
+
     const { url: resolvedUrl } = prismaRes;
 
     res.json({ resolvedUrl });
