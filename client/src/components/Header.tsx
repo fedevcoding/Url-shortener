@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
+import "./Header.scss";
 
-const Header = () => {
+export const Header = () => {
   return (
     <header className="row align-center" id="header">
-      <h2>
-        URL <span className="little">shortener</span>
-      </h2>
+      <Link to={"/"}>
+        <h2>
+          URL <span className="little">shortener</span>
+        </h2>
+      </Link>
 
       <div className="row links">
         <Link to="/">Home</Link>
@@ -14,5 +17,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

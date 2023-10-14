@@ -1,34 +1,19 @@
 #home {
-  #header {
-    justify-content: space-between;
-    padding: 0 5%;
-    height: 40px;
-
-    .little {
-      font-size: 12px;
-    }
-
-    .links {
-      gap: 60px;
-    }
-  }
-
   form {
     margin-bottom: 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    input {
+      width: 300px;
+      height: 18px;
+    }
   }
 
   .title {
     text-align: center;
     font-size: 34px;
-  }
-
-  .input-container {
-    justify-content: center;
-    gap: 20px;
-
-    input {
-      width: 300px;
-    }
   }
 
   .table-section {

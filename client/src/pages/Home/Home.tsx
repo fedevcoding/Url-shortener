@@ -1,11 +1,10 @@
 import { useRef } from "react";
 import { useAliases } from "@hooks/useAliases";
-import Header from "./Header";
 import "./Home.scss";
 import Table from "./Table";
 import { useMutation } from "@tanstack/react-query";
 import { queryServer } from "@main";
-import Loader from "@components/Loader";
+import { Loader, Header } from "@components";
 
 const Home = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -33,11 +32,8 @@ const Home = () => {
   return (
     <section id="home">
       <Header />
-      <h1 className="title">Shorten a URL</h1>
-      <form
-        className="input-container row"
-        onSubmit={(e) => e.preventDefault()}
-      >
+      <h1 className="title">Shorten an URL</h1>
+      <form className="row" onSubmit={(e) => e.preventDefault()}>
         <input
           ref={inputRef}
           type="text"
