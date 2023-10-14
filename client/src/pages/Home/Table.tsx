@@ -15,6 +15,7 @@ const Table = () => {
         <table>
           <thead>
             <tr>
+              <th></th>
               <th>Long URL</th>
               <th>Short URL</th>
               <th></th>
@@ -24,9 +25,12 @@ const Table = () => {
             <ArrayMapper
               array={aliases}
               dependencyArray={[aliases]}
-              mapper={({ longUrl, shortUrl }, _, key) => {
+              mapper={({ longUrl, shortUrl }, index, key) => {
                 return (
                   <tr key={key}>
+                    <td>
+                      <p>{index + 1}</p>
+                    </td>
                     <td>
                       <a href={longUrl}>{longUrl}</a>
                     </td>
