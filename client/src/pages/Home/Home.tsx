@@ -3,35 +3,30 @@ import { useAliases } from "@hooks/useAliases";
 import Header from "./Header";
 import "./Home.scss";
 import Table from "./Table";
+import { useMutation } from "@tanstack/react-query";
+import { queryServer } from "@main";
+import Loader from "@components/Loader";
 
 const Home = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { addAlias } = useAliases();
 
+  const createMutation = useMutation({
+    mutationFn: async (value: string) => {
+      const res = await queryServer.newUrl(value);
+
+      if (res instanceof Error) return;
+      const { shortUrl, url } = res;
+
+      addAlias(url, shortUrl);
+    },
+  });
+
   const handleShrink = async () => {
     const input = inputRef.current;
     if (input) {
-      const json: {
-        shortUrl: string;
-        url: string;
-      } = await (
-        await fetch(`http://localhost:3000/create`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            longUrl: input.value,
-          }),
-        })
-      ).json();
-
-      const { shortUrl, url } = json;
-
-      addAlias(url, shortUrl);
+      createMutation.mutate(input.value);
       input.value = "";
-    } else {
-      // toast error
     }
   };
 
@@ -49,8 +44,11 @@ const Home = () => {
           placeholder="Paste your URL here"
           className="input"
         />
-        <button className="button" onClick={handleShrink}>
-          Shrink
+        <button
+          className="button"
+          onClick={() => !createMutation.isLoading && handleShrink()}
+        >
+          {createMutation.isLoading ? <Loader /> : "Shrink"}
         </button>
       </form>
       <hr />

@@ -10,11 +10,11 @@ export const useAliases = () => {
 
   const addAlias = (longUrl: string, shortUrl: string) => {
     setAliases([
-      ...aliases,
       {
         longUrl,
         shortUrl,
       },
+      ...aliases,
     ]);
   };
 
