@@ -37,7 +37,7 @@ const Home = () => {
         <input
           ref={inputRef}
           type="text"
-          placeholder="Paste your URL here"
+          placeholder="Enter URL to shrink"
           className="input"
         />
         <button

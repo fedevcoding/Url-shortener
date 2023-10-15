@@ -25,8 +25,9 @@ const Redirect = () => {
           className="column"
           style={{
             alignItems: "center",
-            justifyContent: "space-evenly",
-            height: "70vh",
+            justifyContent: "center",
+            gap: "2rem",
+            height: "80vh",
           }}
         >
           <img src={notFound} width={"200px"} />

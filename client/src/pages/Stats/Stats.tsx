@@ -3,8 +3,9 @@ import { queryServer } from "@main";
 import { useQuery } from "@tanstack/react-query";
 import { useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import "./Stats.scss";
 import { notFound } from "@assets";
+import "./Stats.scss";
+import { CLIENT_NAME } from "@constants";
 
 const Stats = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Stats = () => {
   const [searchParams] = useSearchParams();
   const statsId = searchParams.get("id");
 
-  const { data, isError, isLoading, isRefetching, refetch } = useQuery({
+  const { data, isError, isLoading } = useQuery({
     queryKey: [`stats-${statsId}`],
     queryFn: () => (statsId ? queryServer.getStats(statsId) : Promise.reject()),
     retry: false,
@@ -36,7 +37,7 @@ const Stats = () => {
         <input
           ref={inputRef}
           type="text"
-          placeholder="Paste short URL here"
+          placeholder="Enter short URL here"
           className="input"
         />
         <button className="button" onClick={handleClick}>
@@ -60,13 +61,41 @@ const Stats = () => {
         statsId &&
         data &&
         !(data instanceof Error) && (
-          <div>
-            <button className="button" onClick={() => refetch()}>
+          <div className="stats-table">
+            <div className="general-info">
+              <div>
+                <p className="low-opacity">Total Views</p>
+                <p>{data.views}</p>
+              </div>
+              <div>
+                <p className="low-opacity">30D Views</p>
+                <p>{data.views}</p>
+              </div>
+              <div>
+                <p className="low-opacity">7D Views</p>
+                <p>{data.views}</p>
+              </div>
+              <div>
+                <p className="low-opacity">24H Views</p>
+                <p>{data.views}</p>
+              </div>
+            </div>
+            <div className="other-info">
+              <div className="activity"></div>
+            </div>
+            {/* <button className="button" onClick={() => refetch()}>
               {isRefetching ? <Loader /> : "Reload"}
-            </button>
-            <p>Total Views: {data.views}</p>
+            </button> */}
           </div>
         )
+      )}
+
+      {!statsId && (
+        <div className="no-stats">
+          <h3>
+            Enter any short url to see it's stats (e.g {CLIENT_NAME}/test)
+          </h3>
+        </div>
       )}
     </section>
   );

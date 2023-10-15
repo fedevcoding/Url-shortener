@@ -38,6 +38,13 @@
         padding: 10px;
         text-align: center;
       }
+
+      .actions {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 }

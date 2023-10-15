@@ -56,10 +56,19 @@ a{
   text-transform: uppercase;
   transition: all 0.2s ease-in-out;
 }
+.button.red{
+  background-color: #b22222;
+}
 .button:hover{
   background-color: #14843b;
 }
+.button.red:hover{
+  background-color: #a11e1e;
+}
 .button:active{
+  transform: scale(0.95);
+}
+.button.red:active{
   transform: scale(0.95);
 }
 
@@ -82,4 +91,13 @@ hr {
   width: 100%;
   margin: 0 auto;
   opacity: 0.3;
+}
+
+.low-opacity{
+  opacity: 0.8;
+}
+
+
+::-webkit-scrollbar {
+  display: none;
 }

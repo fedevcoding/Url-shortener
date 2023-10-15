@@ -1,6 +1,7 @@
 import { ArrayMapper } from "@components";
 import { CLIENT_URL } from "@constants";
 import { useAliases } from "@hooks";
+import { Link } from "react-router-dom";
 
 const Table = () => {
   const { aliases, removeAlias } = useAliases();
@@ -32,19 +33,24 @@ const Table = () => {
                       <p>{index + 1}</p>
                     </td>
                     <td>
-                      <a href={longUrl}>{longUrl}</a>
-                    </td>
-                    <td>
-                      <a href={`${CLIENT_URL}/${shortUrl}`}>
-                        {CLIENT_URL}/{shortUrl}
+                      <a href={longUrl} target="_blank">
+                        {longUrl}
                       </a>
                     </td>
                     <td>
+                      <a href={`${CLIENT_URL}/${shortUrl}`} target="_blank">
+                        {CLIENT_URL}/{shortUrl}
+                      </a>
+                    </td>
+                    <td className="actions">
+                      <Link to={`/stats?id=${shortUrl}`}>
+                        <button className="button">Stats</button>
+                      </Link>
                       <button
                         onClick={() => {
                           removeAlias(shortUrl);
                         }}
-                        className="button"
+                        className="button red"
                       >
                         Hide
                       </button>
