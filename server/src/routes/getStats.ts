@@ -8,6 +8,13 @@ router.get("/:shortUrl", async (req, res) => {
     let { shortUrl } = req.params as { shortUrl: string };
     if (!shortUrl) throw new Error("No URL provided");
 
+    const urlData = await prisma.urls.findUnique({
+      where: {
+        short_url: shortUrl,
+      },
+    });
+    if (!urlData) throw new Error("Url not found");
+
     const prismaRes = await prisma.views.findMany({
       where: {
         short_url: shortUrl,
