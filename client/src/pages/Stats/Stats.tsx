@@ -1,9 +1,10 @@
-import { Header } from "@components";
+import { Header, Loader } from "@components";
 import { queryServer } from "@main";
 import { useQuery } from "@tanstack/react-query";
 import { useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import "./Stats.scss";
+import { notFound } from "@assets";
 
 const Stats = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Stats = () => {
   const [searchParams] = useSearchParams();
   const statsId = searchParams.get("id");
 
-  const { data, isError, isLoading } = useQuery({
+  const { data, isError, isLoading, isRefetching, refetch } = useQuery({
     queryKey: [`stats-${statsId}`],
     queryFn: () => (statsId ? queryServer.getStats(statsId) : Promise.reject()),
     retry: false,
@@ -21,8 +22,8 @@ const Stats = () => {
   const handleClick = () => {
     const url = inputRef.current?.value;
     if (!url) return;
-
     navigate(`?id=${url}`);
+    inputRef.current.value = "";
   };
 
   return (
@@ -39,18 +40,33 @@ const Stats = () => {
           className="input"
         />
         <button className="button" onClick={handleClick}>
-          Search
+          {isLoading ? <Loader /> : "Search"}
         </button>
       </form>
 
       {statsId && isError ? (
-        "Url not found"
-      ) : statsId && data && !(data instanceof Error) ? (
-        <div>
-          <p>Total Views: {data.views}</p>
+        <div
+          className="column"
+          style={{
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            height: "50vh",
+          }}
+        >
+          <img src={notFound} width={"200px"} />
+          <h1>Url not found</h1>
         </div>
       ) : (
-        isLoading && <>Loading</>
+        statsId &&
+        data &&
+        !(data instanceof Error) && (
+          <div>
+            <button className="button" onClick={() => refetch()}>
+              {isRefetching ? <Loader /> : "Reload"}
+            </button>
+            <p>Total Views: {data.views}</p>
+          </div>
+        )
       )}
     </section>
   );
