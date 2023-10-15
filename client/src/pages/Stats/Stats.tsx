@@ -2,10 +2,10 @@ import { Header, Loader } from "@components";
 import { queryServer } from "@main";
 import { useQuery } from "@tanstack/react-query";
 import { useRef } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { notFound } from "@assets";
 import "./Stats.scss";
-import { CLIENT_NAME } from "@constants";
+import { CLIENT_NAME, CLIENT_URL } from "@constants";
 
 const Stats = () => {
   const navigate = useNavigate();
@@ -62,6 +62,21 @@ const Stats = () => {
         data &&
         !(data instanceof Error) && (
           <div className="stats-table">
+            <div className="intro">
+              <p>
+                Short URL:{" "}
+                <Link to={`${CLIENT_URL}/${statsId}`} target="_blank">
+                  {CLIENT_URL}/{statsId}
+                </Link>
+              </p>
+
+              <p>
+                Redirects to:{" "}
+                <Link to="https://google.com" target="_blank">
+                  https://google.com
+                </Link>
+              </p>
+            </div>
             <div className="general-info">
               <div>
                 <p className="low-opacity">Total Views</p>

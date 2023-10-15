@@ -5,7 +5,15 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 60px;
+    gap: 40px;
+    padding-bottom: 20px;
+
+    .intro {
+      p {
+        font-size: 20px;
+        text-align: center;
+      }
+    }
 
     .general-info {
       width: 100%;
