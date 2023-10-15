@@ -1,3 +1,3 @@
-export const Loader = () => {
-  return <span className="loader"></span>;
+export const Loader = ({ size = "sm" }: { size?: "sm" | "lg" }) => {
+  return <span className={`loader ${size}`}></span>;
 };

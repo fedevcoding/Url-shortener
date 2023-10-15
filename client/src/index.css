@@ -24,8 +24,6 @@ a{
 }
 
 .loader {
-  width: 17px;
-  height: 17px;
   border: 2px solid #FFF;
   border-bottom-color: transparent;
   border-radius: 50%;
@@ -41,7 +39,15 @@ a{
   100% {
       transform: rotate(360deg);
   }
-  } 
+} 
+.loader.sm{
+  width: 17px;
+  height: 17px;
+}
+.loader.lg{
+  width: 28px;
+  height: 28px;
+}
 
 .button{
   border: none;

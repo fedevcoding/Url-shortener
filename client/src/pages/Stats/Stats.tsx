@@ -1,4 +1,4 @@
-import { Header, Loader } from "@components";
+import { ArrayMapper, Header, Loader } from "@components";
 import { queryServer } from "@main";
 import { useQuery } from "@tanstack/react-query";
 import { useRef } from "react";
@@ -41,7 +41,7 @@ const Stats = () => {
           className="input"
         />
         <button className="button" onClick={handleClick}>
-          {isLoading ? <Loader /> : "Search"}
+          Search
         </button>
       </form>
 
@@ -64,7 +64,7 @@ const Stats = () => {
           <div className="stats-table">
             <div className="intro">
               <p>
-                Short URL:{" "}
+                Short URL:
                 <Link to={`${CLIENT_URL}/${statsId}`} target="_blank">
                   {CLIENT_URL}/{statsId}
                 </Link>
@@ -80,27 +80,40 @@ const Stats = () => {
             <div className="general-info">
               <div>
                 <p className="low-opacity">Total Views</p>
-                <p>{data.views}</p>
+                <p>{data.totalClicks}</p>
               </div>
               <div>
                 <p className="low-opacity">30D Views</p>
-                <p>{data.views}</p>
+                <p>{data.thirtyDaysClicks}</p>
               </div>
               <div>
                 <p className="low-opacity">7D Views</p>
-                <p>{data.views}</p>
+                <p>{data.sevenDaysClicks}</p>
               </div>
               <div>
                 <p className="low-opacity">24H Views</p>
-                <p>{data.views}</p>
+                <p>{data.oneDayClicks}</p>
               </div>
             </div>
             <div className="other-info">
-              <div className="activity"></div>
+              <div className="activity">
+                <ArrayMapper
+                  array={data.activity}
+                  mapper={(data, _, key) => {
+                    return (
+                      <>
+                        <div key={key}>
+                          <p>Date: {data.date}</p>
+                          <p>Country: {data?.country || "Not found"}</p>
+                          <p>City: {data?.city || "Not found"}</p>
+                        </div>
+                        <br />
+                      </>
+                    );
+                  }}
+                />
+              </div>
             </div>
-            {/* <button className="button" onClick={() => refetch()}>
-              {isRefetching ? <Loader /> : "Reload"}
-            </button> */}
           </div>
         )
       )}
@@ -110,6 +123,12 @@ const Stats = () => {
           <h3>
             Enter any short url to see it's stats (e.g {CLIENT_NAME}/test)
           </h3>
+        </div>
+      )}
+
+      {isLoading && (
+        <div className="no-stats">
+          <Loader size="lg" />
         </div>
       )}
     </section>

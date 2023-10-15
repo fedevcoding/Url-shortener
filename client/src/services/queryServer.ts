@@ -1,5 +1,16 @@
 import { SERVER_URL } from "@constants";
 
+type statsType = {
+  totalClicks: number;
+  thirtyDaysClicks: number;
+  sevenDaysClicks: number;
+  oneDayClicks: number;
+  activity: {
+    country: string | null;
+    city: string | null;
+    date: string;
+  }[];
+};
 export class QueryServer {
   isError = (e: any): boolean => e instanceof Error;
 
@@ -31,7 +42,7 @@ export class QueryServer {
     return await res.json();
   }
 
-  async getStats(id: string): Promise<{ views: number } | Error> {
+  async getStats(id: string): Promise<statsType | Error> {
     const res = await fetch(`${SERVER_URL}/stats/${id}`);
 
     if (!res.ok) {

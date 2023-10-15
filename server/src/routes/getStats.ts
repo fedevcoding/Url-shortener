@@ -1,7 +1,14 @@
 import { prisma } from "@/config/db";
 import express from "express";
+import { lookup } from "geoip-lite";
 
 const router = express.Router();
+
+type statsActivity = {
+  country: string | null;
+  city: string | null;
+  date: string;
+}[];
 
 router.get("/:shortUrl", async (req, res) => {
   try {
@@ -21,7 +28,43 @@ router.get("/:shortUrl", async (req, res) => {
       },
     });
 
-    res.json({ views: prismaRes.length });
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    const oneDayAgo = new Date();
+    oneDayAgo.setDate(oneDayAgo.getDate() - 1);
+
+    let thirtyDaysClicks = 0;
+    let sevenDaysClicks = 0;
+    let oneDayClicks = 0;
+
+    prismaRes.forEach(view => {
+      if (view.created > thirtyDaysAgo) {
+        thirtyDaysClicks++;
+        if (view.created > sevenDaysAgo) {
+          sevenDaysClicks++;
+          if (view.created > oneDayAgo) {
+            oneDayClicks++;
+          }
+        }
+      }
+    });
+
+    const totalClicks = prismaRes.length;
+
+    const activity: statsActivity = prismaRes.map(view => {
+      const { created, ip_address } = view;
+      const geo = lookup(ip_address ?? "");
+
+      return {
+        country: geo?.country ?? null,
+        city: geo?.city ?? null,
+        date: created.toString(),
+      };
+    });
+
+    res.json({ totalClicks, thirtyDaysClicks, sevenDaysClicks, oneDayClicks, activity });
   } catch (e) {
     console.log(e);
 
