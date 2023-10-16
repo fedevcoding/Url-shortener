@@ -26,6 +26,10 @@ router.get("/:shortUrl", async (req, res) => {
       where: {
         short_url: shortUrl,
       },
+      orderBy: {
+        created: "desc",
+      },
+      take: 500,
     });
 
     const thirtyDaysAgo = new Date();
