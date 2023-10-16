@@ -1,4 +1,4 @@
-import { ArrayMapper, Header, Loader } from "@components";
+import { ArrayMapper, Header, Loader, PieChart } from "@components";
 import { queryServer } from "@main";
 import { useQuery } from "@tanstack/react-query";
 import { useRef } from "react";
@@ -118,6 +118,36 @@ const Stats = () => {
                     );
                   }}
                 />
+              </div>
+
+              <div className="charts-section">
+                <div className="charts">
+                  <div className="countries">
+                    <PieChart
+                      title={"Country clicks"}
+                      tooltipName="Clicks"
+                      items={[
+                        { name: "Italy", y: 4 },
+                        { name: "Germany", y: 7 },
+                        { name: "USA", y: 12 },
+                      ]}
+                    />
+                  </div>
+                  <div className="browsers">
+                    <PieChart
+                      title={"Used browsers"}
+                      tooltipName="Clicks"
+                      items={[
+                        { name: "Italy", y: 4 },
+                        { name: "Germany", y: 7 },
+                        { name: "USA", y: 12 },
+                      ]}
+                    />
+                  </div>
+                </div>
+                <div className="devices">
+                  <p>hello</p>
+                </div>
               </div>
             </div>
           </div>
