@@ -96,19 +96,25 @@ const Stats = () => {
               </div>
             </div>
             <div className="other-info">
-              <div className="activity">
+              <div className="activity-section">
+                <div className="activity-header">
+                  <p>Clicks Activity</p>
+                </div>
                 <ArrayMapper
                   array={data.activity}
                   mapper={(data, _, key) => {
                     return (
-                      <>
-                        <div key={key}>
-                          <p>Date: {data.date}</p>
-                          <p>Country: {data?.country || "Not found"}</p>
-                          <p>City: {data?.city || "Not found"}</p>
-                        </div>
-                        <br />
-                      </>
+                      <div key={key} className="activity-row">
+                        <p>{new Date(data.date).toDateString()}</p>
+                        <p className="low-opacity">
+                          From: {data?.country || "Not found"}
+                          {data?.city && ", "}
+                          {data?.city || ""}
+                        </p>
+                        <p className="low-opacity">
+                          IP Address: {data?.ipAddress || "Not found"}
+                        </p>
+                      </div>
                     );
                   }}
                 />

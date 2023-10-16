@@ -32,7 +32,27 @@
       border-radius: 5px;
       height: 500px;
 
-      .activity {
+      .activity-section {
+        .activity-header {
+          position: sticky;
+          top: 0;
+          text-align: center;
+          background-color: rgb(27, 27, 27);
+          border-bottom: 2px solid gray;
+          padding: 10px 0;
+          z-index: 1;
+
+          p {
+            display: inline;
+          }
+        }
+
+        .activity-row {
+          text-align: center;
+          border-bottom: 2px solid gray;
+        }
+
+        overflow-y: scroll;
         width: 30%;
         height: 100%;
         border-right: 2px solid gray;

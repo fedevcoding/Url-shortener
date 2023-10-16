@@ -9,6 +9,7 @@ type statsType = {
     country: string | null;
     city: string | null;
     date: string;
+    ipAddress: string | null;
   }[];
 };
 export class QueryServer {
