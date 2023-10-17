@@ -23,7 +23,14 @@ model views {
   id         Int      @id @default(autoincrement())
   short_url  String
   ip_address String?
+  device     device?
+  browser    String?
   created    DateTime @default(now())
 
   @@index([short_url])
+}
+
+enum device {
+  pc
+  mobile
 }

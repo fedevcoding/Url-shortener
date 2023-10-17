@@ -66,6 +66,8 @@ router.get("/:shortUrl", async (req, res) => {
         city: geo?.city ?? null,
         date: created.toString(),
         ipAddress: ip_address ?? null,
+        browser: view.browser ?? null,
+        device: view.device ?? null,
       };
     });
 

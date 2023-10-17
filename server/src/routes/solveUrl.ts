@@ -23,6 +23,8 @@ router.get("/", async (req, res) => {
     addVisit({
       ipAddress: req.clientIp,
       shortUrl: url,
+      device: req.useragent?.isMobile ? "mobile" : "pc",
+      browser: req.useragent?.browser,
     });
 
     const { url: resolvedUrl } = prismaRes;

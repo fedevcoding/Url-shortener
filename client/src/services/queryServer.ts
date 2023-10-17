@@ -10,6 +10,8 @@ type statsType = {
     city: string | null;
     date: string;
     ipAddress: string | null;
+    browser: string | null;
+    device: "pc" | "mobile" | null;
   }[];
 };
 export class QueryServer {

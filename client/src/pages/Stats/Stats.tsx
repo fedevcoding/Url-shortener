@@ -158,8 +158,16 @@ const Stats = () => {
                     title="Devices"
                     height="200px"
                     items={[
-                      { name: "Mobile", y: 2 },
-                      { name: "PC", y: 7 },
+                      {
+                        name: "Mobile",
+                        y: data.activity.filter((x) => x.device === "mobile")
+                          .length,
+                      },
+                      {
+                        name: "PC",
+                        y: data.activity.filter((x) => x.device === "pc")
+                          .length,
+                      },
                     ]}
                   />
                 </div>
