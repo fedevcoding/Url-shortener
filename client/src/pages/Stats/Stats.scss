@@ -69,10 +69,16 @@
         .charts {
           display: flex;
           align-items: center;
+          width: 100%;
+
           .countries,
           .browsers {
             width: 85%;
           }
+        }
+
+        .devices {
+          height: 50px;
         }
       }
     }

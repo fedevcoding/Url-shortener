@@ -1,4 +1,10 @@
-import { ArrayMapper, Header, Loader, PieChart } from "@components";
+import {
+  ArrayMapper,
+  Header,
+  Loader,
+  PieChart,
+  StackedBarChart,
+} from "@components";
 import { queryServer } from "@main";
 import { useQuery } from "@tanstack/react-query";
 import { useRef } from "react";
@@ -146,7 +152,7 @@ const Stats = () => {
                   </div>
                 </div>
                 <div className="devices">
-                  <p>hello</p>
+                  <StackedBarChart title="Devices" />
                 </div>
               </div>
             </div>
