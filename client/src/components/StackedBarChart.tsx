@@ -6,10 +6,14 @@ import { Options } from "highcharts";
 DarkUnica(Highcharts);
 
 export const StackedBarChart = ({
-  //   items,
+  items,
+  height,
+  width,
   title,
 }: {
-  //   items: { name: string; y: number }[];
+  items: { name: string; y: number }[];
+  height?: string;
+  width?: string;
   title: string;
 }) => {
   const options: Options = {
@@ -20,6 +24,8 @@ export const StackedBarChart = ({
       style: {
         fontFamily: "Open Sans",
       },
+      height,
+      width,
     },
     title: {
       text: title,
@@ -56,18 +62,13 @@ export const StackedBarChart = ({
         },
       },
     },
-    series: [
-      {
-        name: "Mobile",
+    series: items.map((i) => {
+      return {
+        name: i.name,
         type: "bar",
-        data: [7],
-      },
-      {
-        name: "PC",
-        type: "bar",
-        data: [2],
-      },
-    ],
+        data: [i.y],
+      };
+    }),
   };
 
   return <HighchartsReact highcharts={Highcharts} options={options} />;

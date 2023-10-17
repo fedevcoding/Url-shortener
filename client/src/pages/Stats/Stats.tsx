@@ -132,6 +132,7 @@ const Stats = () => {
                     <PieChart
                       title={"Country clicks"}
                       tooltipName="Clicks"
+                      height="250px"
                       items={[
                         { name: "Italy", y: 4 },
                         { name: "Germany", y: 7 },
@@ -143,6 +144,7 @@ const Stats = () => {
                     <PieChart
                       title={"Used browsers"}
                       tooltipName="Clicks"
+                      height="250px"
                       items={[
                         { name: "Italy", y: 4 },
                         { name: "Germany", y: 7 },
@@ -152,7 +154,14 @@ const Stats = () => {
                   </div>
                 </div>
                 <div className="devices">
-                  <StackedBarChart title="Devices" />
+                  <StackedBarChart
+                    title="Devices"
+                    height="200px"
+                    items={[
+                      { name: "Mobile", y: 2 },
+                      { name: "PC", y: 7 },
+                    ]}
+                  />
                 </div>
               </div>
             </div>

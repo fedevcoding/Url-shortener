@@ -9,10 +9,14 @@ export const PieChart = ({
   items,
   title,
   tooltipName,
+  height,
+  width,
 }: {
   items: { name: string; y: number }[];
   title: string;
   tooltipName: string;
+  height?: string;
+  width?: string;
 }) => {
   const options: Options = {
     chart: {
@@ -22,12 +26,15 @@ export const PieChart = ({
       style: {
         fontFamily: "Open Sans",
       },
+      height,
+      width,
     },
     title: {
       text: title,
       style: {
         fontFamily: "inherit",
       },
+      align: "center",
     },
     tooltip: {
       pointFormat: "{series.name}: <b>{point.percentage:.1f}% ({point.y}</b>)",
@@ -40,7 +47,7 @@ export const PieChart = ({
     plotOptions: {
       pie: {
         allowPointSelect: true,
-        innerSize: "30%",
+        innerSize: "55%",
         cursor: "pointer",
         dataLabels: {
           enabled: true,
