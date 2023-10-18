@@ -10,14 +10,6 @@ type statsActivity = {
   date: string;
 }[];
 
-type statsChart = Record<
-  string,
-  {
-    name: string;
-    y: number;
-  }
->[];
-
 router.get("/:shortUrl", async (req, res) => {
   try {
     let { shortUrl } = req.params as { shortUrl: string };
