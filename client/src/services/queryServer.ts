@@ -13,6 +13,10 @@ type statsType = {
     browser: string | null;
     device: "pc" | "mobile" | null;
   }[];
+  mobileClicks: number;
+  pcClicks: number;
+  browsers: Map<string, number>;
+  countries: Map<string, number>;
 };
 export class QueryServer {
   isError = (e: any): boolean => e instanceof Error;

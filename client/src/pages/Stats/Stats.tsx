@@ -133,11 +133,13 @@ const Stats = () => {
                       title={"Country clicks"}
                       tooltipName="Clicks"
                       height="250px"
-                      items={[
-                        { name: "Italy", y: 4 },
-                        { name: "Germany", y: 7 },
-                        { name: "USA", y: 12 },
-                      ]}
+                      items={Array.from(data.countries).map((b) => {
+                        console.log(b);
+                        return {
+                          name: b[0],
+                          y: b[1],
+                        };
+                      })}
                     />
                   </div>
                   <div className="browsers">
@@ -145,11 +147,13 @@ const Stats = () => {
                       title={"Used browsers"}
                       tooltipName="Clicks"
                       height="250px"
-                      items={[
-                        { name: "Italy", y: 4 },
-                        { name: "Germany", y: 7 },
-                        { name: "USA", y: 12 },
-                      ]}
+                      items={Array.from(data.browsers).map((b) => {
+                        console.log(b);
+                        return {
+                          name: b[0],
+                          y: b[1],
+                        };
+                      })}
                     />
                   </div>
                 </div>
@@ -160,13 +164,11 @@ const Stats = () => {
                     items={[
                       {
                         name: "Mobile",
-                        y: data.activity.filter((x) => x.device === "mobile")
-                          .length,
+                        y: data.mobileClicks,
                       },
                       {
                         name: "PC",
-                        y: data.activity.filter((x) => x.device === "pc")
-                          .length,
+                        y: data.pcClicks,
                       },
                     ]}
                   />
