@@ -106,6 +106,12 @@ const Stats = () => {
                 <div className="activity-header">
                   <p>Clicks Activity</p>
                 </div>
+                {data.activity.length === 0 && (
+                  <div className="no-activity">
+                    <p>No activity found</p>
+                    <img src={notFound} alt="" />
+                  </div>
+                )}
                 <ArrayMapper
                   array={data.activity}
                   mapper={(data, _, key) => {
