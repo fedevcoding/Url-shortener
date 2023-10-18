@@ -83,6 +83,13 @@ a{
   transform: scale(0.95);
 }
 
+@media (max-width: 650px) {
+  .button{
+    padding: 10px 15px;
+    font-size: 12px;
+  }
+}
+
 
 .input{
   border: none;
@@ -111,4 +118,22 @@ hr {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+
+
+@media (max-width: 1024px){
+  .remove-1024{
+    display: none !important;
+  }
+}
+@media (max-width: 650px){
+  .remove-650{
+    display: none !important;
+  }
+}
+@media (max-width: 550px){
+  .remove-550{
+    display: none !important;
+  }
 }

@@ -16,10 +16,10 @@ const Table = () => {
         <table>
           <thead>
             <tr>
-              <th></th>
-              <th>Long URL</th>
+              <th className="remove-650"></th>
+              <th className="remove-1024">Long URL</th>
               <th>Short URL</th>
-              <th></th>
+              <th className="remove-550"></th>
             </tr>
           </thead>
           <tbody>
@@ -29,10 +29,10 @@ const Table = () => {
               mapper={({ longUrl, shortUrl }, index, key) => {
                 return (
                   <tr key={key}>
-                    <td>
+                    <td className="remove-650">
                       <p>{index + 1}</p>
                     </td>
-                    <td>
+                    <td className="remove-1024">
                       <a href={longUrl} target="_blank">
                         {longUrl}
                       </a>
@@ -42,7 +42,7 @@ const Table = () => {
                         {CLIENT_URL}/{shortUrl}
                       </a>
                     </td>
-                    <td className="actions">
+                    <td className="actions remove-550">
                       <Link to={`/stats?id=${shortUrl}`}>
                         <button className="button">Stats</button>
                       </Link>
@@ -50,7 +50,7 @@ const Table = () => {
                         onClick={() => {
                           removeAlias(shortUrl);
                         }}
-                        className="button red"
+                        className="button red remove-1024"
                       >
                         Hide
                       </button>

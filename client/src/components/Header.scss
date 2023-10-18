@@ -10,4 +10,34 @@
   .links {
     gap: 60px;
   }
+
+  @media (max-width: 450px) {
+    height: 30px;
+
+    h2 {
+      font-size: 20px;
+    }
+    .little {
+      font-size: 10px;
+    }
+
+    .links {
+      gap: 40px;
+    }
+  }
+  @media (max-width: 380px) {
+    height: 30px;
+
+    h2 {
+      font-size: 18px;
+    }
+    .little {
+      font-size: 8px;
+    }
+
+    .links {
+      gap: 30px;
+      font-size: 14px;
+    }
+  }
 }
