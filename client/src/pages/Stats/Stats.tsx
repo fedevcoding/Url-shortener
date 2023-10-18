@@ -12,12 +12,14 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { notFound } from "@assets";
 import "./Stats.scss";
 import { CLIENT_NAME, CLIENT_URL } from "@constants";
+import { useSize } from "@hooks";
 
 const Stats = () => {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchParams] = useSearchParams();
   const statsId = searchParams.get("id");
+  const { width } = useSize();
 
   const { data, isError, isLoading } = useQuery({
     queryKey: [`stats-${statsId}`],
@@ -101,86 +103,94 @@ const Stats = () => {
                 <p>{data.oneDayClicks}</p>
               </div>
             </div>
-            <div className="other-info">
-              <div className="activity-section">
-                <div className="activity-header">
-                  <p>Clicks Activity</p>
-                </div>
-                {data.activity.length === 0 && (
-                  <div className="no-activity">
-                    <p>No activity found</p>
-                    <img src={notFound} alt="" />
-                  </div>
-                )}
-                <ArrayMapper
-                  array={data.activity}
-                  mapper={(data, _, key) => {
-                    return (
-                      <div key={key} className="activity-row">
-                        <p>{new Date(data.date).toDateString()}</p>
-                        <p className="low-opacity">
-                          From: {data?.country || "Not found"}
-                          {data?.city && ", "}
-                          {data?.city || ""}
-                        </p>
-                        <p className="low-opacity">
-                          IP Address: {data?.ipAddress || "Not found"}
-                        </p>
-                      </div>
-                    );
-                  }}
-                />
-              </div>
 
-              <div className="charts-section">
-                <div className="charts">
-                  <div className="countries">
-                    <PieChart
-                      title={"Country clicks"}
-                      tooltipName="Clicks"
-                      height="250px"
-                      items={Array.from(data.countries).map((b) => {
-                        console.log(b);
-                        return {
-                          name: b[0],
-                          y: b[1],
-                        };
-                      })}
-                    />
+            {width > 1024 ? (
+              <div className="other-info">
+                <div className="activity-section">
+                  <div className="activity-header">
+                    <p>Clicks Activity</p>
                   </div>
-                  <div className="browsers">
-                    <PieChart
-                      title={"Used browsers"}
-                      tooltipName="Clicks"
-                      height="250px"
-                      items={Array.from(data.browsers).map((b) => {
-                        console.log(b);
-                        return {
-                          name: b[0],
-                          y: b[1],
-                        };
-                      })}
-                    />
-                  </div>
-                </div>
-                <div className="devices">
-                  <StackedBarChart
-                    title="Devices"
-                    height="200px"
-                    items={[
-                      {
-                        name: "Mobile",
-                        y: data.mobileClicks,
-                      },
-                      {
-                        name: "PC",
-                        y: data.pcClicks,
-                      },
-                    ]}
+                  {data.activity.length === 0 && (
+                    <div className="no-activity">
+                      <p>No activity found</p>
+                      <img src={notFound} alt="" />
+                    </div>
+                  )}
+                  <ArrayMapper
+                    array={data.activity}
+                    mapper={(data, _, key) => {
+                      return (
+                        <div key={key} className="activity-row">
+                          <p>{new Date(data.date).toDateString()}</p>
+                          <p className="low-opacity">
+                            From: {data?.country || "Not found"}
+                            {data?.city && ", "}
+                            {data?.city || ""}
+                          </p>
+                          <p className="low-opacity">
+                            IP Address: {data?.ipAddress || "Not found"}
+                          </p>
+                        </div>
+                      );
+                    }}
                   />
                 </div>
+
+                <div className="charts-section">
+                  <div className="charts">
+                    <div className="countries">
+                      <PieChart
+                        title={"Country clicks"}
+                        tooltipName="Clicks"
+                        height="250px"
+                        items={Array.from(data.countries).map((b) => {
+                          console.log(b);
+                          return {
+                            name: b[0],
+                            y: b[1],
+                          };
+                        })}
+                      />
+                    </div>
+                    <div className="browsers">
+                      <PieChart
+                        title={"Used browsers"}
+                        tooltipName="Clicks"
+                        height="250px"
+                        items={Array.from(data.browsers).map((b) => {
+                          console.log(b);
+                          return {
+                            name: b[0],
+                            y: b[1],
+                          };
+                        })}
+                      />
+                    </div>
+                  </div>
+                  <div className="devices">
+                    <StackedBarChart
+                      title="Devices"
+                      height="200px"
+                      items={[
+                        {
+                          name: "Mobile",
+                          y: data.mobileClicks,
+                        },
+                        {
+                          name: "PC",
+                          y: data.pcClicks,
+                        },
+                      ]}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="center">
+                *To view the full stats, please use a device with a larger
+                screen
+              </div>
+            )}
           </div>
         )
       )}
