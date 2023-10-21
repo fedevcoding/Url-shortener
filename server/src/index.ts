@@ -30,7 +30,3 @@ app.listen(port, async () => {
   connectDB();
   useRoutes(app);
 });
-// test actions
-// test actions
-// test actions
-// test actions
