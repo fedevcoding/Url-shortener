@@ -9,24 +9,27 @@ on:
       - production
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Use Node 12
+      - name: Use Node 16
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 16.x
 
       - name: Install packages
         run: npm i
+        working-directory: server
 
       - name: Install Railway
         run: npm i -g @railway/cli
+        working-directory: server
 
       - name: Deploy
-        run: railway up
+        run: railway up --service ${{ secrets.RAILWAY_SERVICE_ID }}
+        working-directory: server
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
