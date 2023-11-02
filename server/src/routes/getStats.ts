@@ -1,4 +1,5 @@
 import { prisma } from "@/config/db";
+import { CLIENT_NAME } from "@/constants";
 import express from "express";
 import { lookup } from "geoip-lite";
 
@@ -14,6 +15,8 @@ router.get("/:shortUrl", async (req, res) => {
   try {
     let { shortUrl } = req.params as { shortUrl: string };
     if (!shortUrl) throw new Error("No URL provided");
+
+    if (shortUrl.startsWith(CLIENT_NAME)) shortUrl.replace(CLIENT_NAME, "");
 
     const urlData = await prisma.urls.findUnique({
       where: {
@@ -104,6 +107,7 @@ router.get("/:shortUrl", async (req, res) => {
       pcClicks,
       browsers: [...browsers],
       countries: [...countries],
+      redirectsTo: urlData.url,
     });
   } catch (e) {
     console.log(e);
