@@ -17,6 +17,7 @@ type statsType = {
   pcClicks: number;
   browsers: Map<string, number>;
   countries: Map<string, number>;
+  redirectsTo: string;
 };
 export class QueryServer {
   isError = (e: any): boolean => e instanceof Error;

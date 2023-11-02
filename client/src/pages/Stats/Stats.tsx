@@ -29,9 +29,12 @@ const Stats = () => {
   });
 
   const handleClick = () => {
-    const url = inputRef.current?.value;
-    if (!url) return;
-    navigate(`?id=${url}`);
+    let urlid = inputRef.current?.value;
+    if (!urlid || !inputRef.current) return;
+    urlid = urlid.startsWith(CLIENT_NAME)
+      ? urlid.replace(CLIENT_NAME + "/", "")
+      : urlid;
+    navigate(`?id=${urlid}`);
     inputRef.current.value = "";
   };
 
@@ -72,7 +75,7 @@ const Stats = () => {
           <div className="stats-table">
             <div className="intro">
               <p>
-                Short URL:
+                Short URL:{" "}
                 <Link to={`${CLIENT_URL}/${statsId}`} target="_blank">
                   {CLIENT_URL}/{statsId}
                 </Link>
@@ -80,8 +83,8 @@ const Stats = () => {
 
               <p>
                 Redirects to:{" "}
-                <Link to="https://google.com" target="_blank">
-                  https://google.com
+                <Link to={data.redirectsTo} target="_blank">
+                  {data.redirectsTo}
                 </Link>
               </p>
             </div>
@@ -198,7 +201,7 @@ const Stats = () => {
       {!statsId && (
         <div className="no-stats">
           <h3>
-            Enter any short url to see it's stats (e.g {CLIENT_NAME}/test)
+            Enter any short url to see it's stats (e.g {CLIENT_NAME}/QL08cAYdE)
           </h3>
         </div>
       )}
