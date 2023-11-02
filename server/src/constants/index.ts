@@ -1,2 +1,2 @@
-export const CLIENT_URL = "http://localhost:3000";
-export const CLIENT_NAME = "localhost";
+export const CLIENT_URL = "https://testshortener.netlify.app";
+export const CLIENT_NAME = "testshortener.netlify.app";
