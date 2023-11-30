@@ -8,6 +8,6 @@ export const LIMITER = rateLimit({
   windowMs: 1 * 30 * 1000,
   limit: 15,
   keyGenerator: function (req) {
-    return req.clientIp || req.ip;
+    return (req.clientIp || req.ip) as string;
   },
 });
