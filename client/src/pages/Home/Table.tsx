@@ -2,6 +2,7 @@ import { ArrayMapper } from "@components";
 import { CLIENT_URL } from "@constants";
 import { useAliases } from "@hooks";
 import { Link } from "react-router-dom";
+import copy from "copy-to-clipboard";
 
 const Table = () => {
   const { aliases, removeAlias } = useAliases();
@@ -27,19 +28,31 @@ const Table = () => {
               array={aliases}
               dependencyArray={[aliases]}
               mapper={({ longUrl, shortUrl }, index, key) => {
+                const formattedShorUrl = `${CLIENT_URL}/${shortUrl}`;
+
                 return (
                   <tr key={key}>
                     <td className="remove-650">
                       <p>{index + 1}</p>
                     </td>
                     <td className="remove-1024">
+                      <i
+                        onClick={() => copy(longUrl)}
+                        className="fa-solid fa-copy"
+                        style={{ marginRight: "10px", cursor: "pointer" }}
+                      ></i>
                       <a href={longUrl} target="_blank">
                         {longUrl}
                       </a>
                     </td>
                     <td>
-                      <a href={`${CLIENT_URL}/${shortUrl}`} target="_blank">
-                        {CLIENT_URL}/{shortUrl}
+                      <i
+                        onClick={() => copy(longUrl)}
+                        className="fa-solid fa-copy"
+                        style={{ marginRight: "10px", cursor: "pointer" }}
+                      ></i>
+                      <a href={formattedShorUrl} target="_blank">
+                        {formattedShorUrl}
                       </a>
                     </td>
                     <td className="actions remove-550">

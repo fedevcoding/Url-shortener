@@ -9,17 +9,19 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db";
 import { useRoutes } from "./routes/useRoutes";
-import { CLIENT_URL } from "./constants";
+import { CLIENT_URL, LIMITER } from "./constants";
 
 const port = process.env.PORT || 3000;
 const app = express();
 
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: CLIENT_URL }));
 app.use(requestIp.mw());
 app.set("trust proxy", true);
 app.use(express.json({ limit: "500mb" }));
 app.use(express.urlencoded({ limit: "500mb", extended: true }));
 app.use(useragent.express());
+// rate limit by IP address
+app.use(LIMITER);
 
 app.get("/", (_, res) => {
   res.redirect(CLIENT_URL);

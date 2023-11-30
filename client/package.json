@@ -12,6 +12,7 @@
   "dependencies": {
     "@tanstack/react-query": "^4.36.1",
     "@types/node": "^20.8.4",
+    "copy-to-clipboard": "^3.3.3",
     "highcharts": "^11.1.0",
     "highcharts-react-official": "^3.2.1",
     "path": "^0.12.7",
