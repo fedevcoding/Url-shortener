@@ -13,8 +13,8 @@ import { CLIENT_URL } from "./constants";
 
 const port = process.env.PORT || 3000;
 const app = express();
-
-app.use(cors({ origin: "*" }));
+console.log(CLIENT_URL);
+app.use(cors({ origin: CLIENT_URL }));
 app.use(requestIp.mw());
 app.set("trust proxy", true);
 app.use(express.json({ limit: "500mb" }));

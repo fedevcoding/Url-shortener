@@ -1,3 +1,5 @@
-export const CLIENT_URL = "http://localhost:5173";
-export const CLIENT_NAME = "localhost";
-export const SERVER_URL = "http://localhost:3000";
+import { getEnv } from "@utils";
+
+export const CLIENT_URL = getEnv("CLIENT_URL");
+export const CLIENT_NAME = getEnv("CLIENT_NAME");
+export const SERVER_URL = getEnv("SERVER_URL");
