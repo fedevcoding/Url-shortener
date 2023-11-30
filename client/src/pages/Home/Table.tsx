@@ -47,7 +47,7 @@ const Table = () => {
                     </td>
                     <td>
                       <i
-                        onClick={() => copy(longUrl)}
+                        onClick={() => copy(formattedShorUrl)}
                         className="fa-solid fa-copy"
                         style={{ marginRight: "10px", cursor: "pointer" }}
                       ></i>
