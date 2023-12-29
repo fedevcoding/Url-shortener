@@ -4,7 +4,7 @@
 
 <br/>
 
-# Working example: [here](https://testshortener.netlify.app)
+# Working example: [here](https://shortener.fedev.me)
 
 <h4>To run locally:</P>
 
